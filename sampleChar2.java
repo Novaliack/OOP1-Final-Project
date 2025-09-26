@@ -4,7 +4,7 @@ package com.batakers.thehungerbites;
 
 class sampleChar2 extends Character{
     public sampleChar2() {
-        super("sample2", 70, 120, 20);
+        super("sample2", 70, 120, 20); //char name, hp, mana, mana regen
     }
 
     @Override
@@ -22,3 +22,4 @@ class sampleChar2 extends Character{
         performAttack(target, 50, 60, 70, "ult"); //target name, min dmg, max dmg, mana cost
     }
 }
+
