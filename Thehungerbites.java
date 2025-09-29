@@ -9,12 +9,11 @@ public class Thehungerbites {
         sampleChar2 char2 = new sampleChar2();
         
         Character[] characters = {char1, char2};
-        String[] names = {"Warrior", "Mage"};
+        String[] names = {"sample1", "sample2"};
         
         Scanner scanner = new Scanner(System.in);
         int currentTurn = 0; //turn tracker
-        System.out.println("Welcome to the Turn-Based Battle!");
-        System.out.println("Warrior and Mage will take turns using skills.");
+        System.out.println("Welcome to The Hunger Bites!");
         System.out.println("Skills: 1 = Basic (low dmg, 0 mana), 2 = Skill (med dmg, mana cost), 3 = Ultimate (high dmg, high mana cost)");
         System.out.println("Damage has a random range. Mana regenerates at the start of each turn.");
         System.out.println("The game ends when one character is defeated.\n");
