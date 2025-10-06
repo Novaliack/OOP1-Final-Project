@@ -3,7 +3,7 @@ package com.batakers.thehungerbites;
 
 import java.util.*;
 
-abstract class Character {
+public abstract class Character {
     protected String name;
     protected int hp;
     protected int maxHp;
@@ -73,5 +73,7 @@ abstract class Character {
     public int getMaxMana() {
         return this.maxMana;
     }
+
+
     
 }

@@ -5,44 +5,54 @@ import java.util.*;
 public class Thehungerbites {
 
     public static void main(String[] args) {
-        sampleChar1 char1 = new sampleChar1();
-        sampleChar2 char2 = new sampleChar2();
-        
-        Character[] characters = {char1, char2};
-        String[] names = {"sample1", "sample2"};
-        
         Scanner scanner = new Scanner(System.in);
-        int currentTurn = 0; //turn tracker
+
         System.out.println("Welcome to The Hunger Bites!");
-        System.out.println("Skills: 1 = Basic (low dmg, 0 mana), 2 = Skill (med dmg, mana cost), 3 = Ultimate (high dmg, high mana cost)");
-        System.out.println("Damage has a random range. Mana regenerates at the start of each turn.");
-        System.out.println("The game ends when one character is defeated.\n");
-        
+        System.out.println("Choose your fighters!");
+        System.out.println("Skills: 1 = Basic (low dmg, 0 mana), 2 = Skill (med dmg, mana cost), 3 = Ultimate (high dmg, high mana cost)\n");
+
+        //avail chars
+        System.out.println("Available Characters:");
+        System.out.println("1. sampleChar1");
+        System.out.println("2. sampleChar2");
+        System.out.println("3. Jollibee");
+
+        // PLAYER 1 CHOICE
+        System.out.print("\nPlayer 1, choose your character (1-8): ");
+        int p1Choice = scanner.nextInt();
+        Character char1 = chooseCharacter(p1Choice);
+
+        //p2 choice
+        System.out.print("Player 2, choose your character (1-8): ");
+        int p2Choice = scanner.nextInt();
+        Character char2 = chooseCharacter(p2Choice);
+
+        System.out.println("\n" + char1.getName() + " VS " + char2.getName() + "!");
+        System.out.println("The battle begins!\n");
+
+        //turn setup
+        Character[] characters = {char1, char2};
+        int currentTurn = 0;
+
         while (true) {
-            //current char
             Character current = characters[currentTurn % 2];
             Character opponent = characters[(currentTurn + 1) % 2];
-            if (!current.isAlive()) {
-                //switch to opp if current is dead
-                currentTurn++;
-                continue;
-            }
-            //skip if opp dead
+
             if (!opponent.isAlive()) {
+                System.out.println("\n--- Game Over! ---");
+                System.out.println(current.getName() + " is the winner!");
                 break;
             }
-            // Regenerate mana at start of turn
+
             current.regenerateMana();
-            //display current status
             System.out.println("\n--- " + current.getName() + "'s Turn ---");
-            System.out.println("Healths:");
-            System.out.println(names[0] + ": " + (char1.isAlive() ? char1.getHealth() + "/" + char1.getMaxHealth() : "DEAD") + " HP");
-            System.out.println(names[1] + ": " + (char2.isAlive() ? char2.getHealth() + "/" + char2.getMaxHealth() : "DEAD") + " HP");
-            System.out.println("Mana - " + current.getName() + ": " + current.getCurrentMana() + "/" + current.getMaxMana());
-            
+            System.out.println(char1.getName() + ": " + (char1.isAlive() ? char1.getHealth() + "/" + char1.getMaxHealth() : "DEAD") + " HP");
+            System.out.println(char2.getName() + ": " + (char2.isAlive() ? char2.getHealth() + "/" + char2.getMaxHealth() : "DEAD") + " HP");
+            System.out.println(current.getName() + " Mana: " + current.getCurrentMana() + "/" + current.getMaxMana());
+
             System.out.print("Choose skill (1=Basic, 2=Skill, 3=Ultimate): ");
             int skillChoice = scanner.nextInt();
-            //skill execution
+
             switch (skillChoice) {
                 case 1:
                     current.basicAttack(opponent);
@@ -57,13 +67,29 @@ public class Thehungerbites {
                     System.out.println("Invalid choice! Skipping turn.");
                     break;
             }
-            //check win con
-            if (!opponent.isAlive()) {
+
+            if(!opponent.isAlive()){
+                System.out.println(opponent.getName()+ " has fallen!");
                 System.out.println("\n--- Game Over! ---");
-                System.out.println(current.getName() + " is the winner!");
+                System.out.println(current.getName() + " is the winner");
                 break;
             }
-            currentTurn++;//next turn
+            currentTurn++;
         }
+
+        scanner.close();
+    }
+
+    // method for character selection (Pwede bani mabutang sa Character.java para mas clean?)
+    public static Character chooseCharacter(int choice) {
+        return switch (choice) {
+            case 1 -> new sampleChar1();
+            case 2 -> new sampleChar2();
+            case 3 -> new Jollibee();
+            default -> {
+                System.out.println("Invalid choice! Defaulting to sampleChar1.");
+                yield new sampleChar1();
+            }
+        };
     }
 }
