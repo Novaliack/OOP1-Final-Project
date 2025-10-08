@@ -22,6 +22,10 @@ class sampleChar1 extends Character{
         performAttack(target, 40, 50, 50, "ult"); //target name, min dmg, max dmg, mana cost
     }
     
-    
+    @Override
+    public void rest(Character target) {
+        performAttack(target,-20, -20, 0, "Rest");
+    }
 }
+
 
