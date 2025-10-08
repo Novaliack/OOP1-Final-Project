@@ -110,12 +110,8 @@ public class GameManager {
     private Character selectCharacterWithValidation(String playerName) {
         // Let CharacterManager handle the character logic
         // But GameManager handles the input validation
-        System.out.println("Choose your fighter!");
-        characterManager.showCharacterList();
-        System.out.print("\n" + playerName + ", choose your character (1-3): ");
-
-        int choice = getValidInput(1, 3);
-        return characterManager.createCharacter(choice);
+        scanner.nextLine();
+        return characterManager.selectCharacter(scanner, playerName);
     }
 
 
