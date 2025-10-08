@@ -1,12 +1,13 @@
 package com.batakers.thehungerbites;
 
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class GameManager {
     private Scanner scanner = new Scanner(System.in);
     private CharacterManager characterManager = new CharacterManager();
     private BattleSystem battleSystem = new BattleSystem();
+    private boolean aiMode = false; // track if playing vs AI
 
     public void startGame() {
         showMainMenu();
@@ -20,17 +21,24 @@ public class GameManager {
             System.out.println("       THE HUNGER BITES");
             System.out.println("====================================");
             System.out.println("1. Player vs Player");
-            System.out.println("2. Exit");
+            System.out.println("2. Player vs Ai");
+            System.out.println("3. Exit");
             System.out.println("====================================");
-            System.out.print("Choose game mode (1-2): ");
+            System.out.print("Choose game mode (1-3): ");
 
-            int choice = getValidInput(1, 2);
+
+            int choice = getValidInput(1, 3);
 
             switch (choice) {
                 case 1:
+                    aiMode = false;
                     startPlayerVsPlayer();
                     break;
                 case 2:
+                    aiMode = true;
+                    startPlayerVsAi();
+                    break;
+                case 3:
                     running = false;
                     System.out.println("Thanks for playing The Hunger Bites!");
                     break;
@@ -50,9 +58,19 @@ public class GameManager {
     }
 
     private void startPlayerVsPlayer() {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println("\n=== Player vs Player Mode ===");
         System.out.println("Welcome to The Hunger Bites!");
-        System.out.println("Skills: 1 = Basic (low dmg, 0 mana), 2 = Skill (med dmg, mana cost), 3 = Ultimate (high dmg, high mana cost)\n");
+        System.out.println("Skills:");
+        System.out.println("1 = Basic (low dmg, 0 mana)");
+        System.out.println("2 = Skill (med dmg, mana cost)");
+        System.out.println("3 = Ultimate (high dmg, high mana cost)");
+        System.out.println("====================================");
+
 
         // Character selection with validation
         Character player1 = selectCharacterWithValidation("Player 1");
@@ -61,6 +79,31 @@ public class GameManager {
         startBattle(player1, player2);
     }
 
+    private void startPlayerVsAi(){
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("\n=== Player vs Ai Mode ===");
+        System.out.println("Welcome to The Hunger Bites!");
+        System.out.println("Skills:");
+        System.out.println("1 = Basic (low dmg, 0 mana)");
+        System.out.println("2 = Skill (med dmg, mana cost)");
+        System.out.println("3 = Ultimate (high dmg, high mana cost)");
+        System.out.println("====================================");
+
+
+        // Character selection with validation
+        Character player1 = selectCharacterWithValidation("Player 1");
+        Character player2 = selectCharacterWithValidation("AI");
+
+        startBattle(player1, player2);
+
+    }
+    public boolean isAi(){
+        return aiMode;
+    }
     /**
      * checks input for character
      */
@@ -87,7 +130,17 @@ public class GameManager {
             Character currentPlayer = players[currentTurn % 2];
             Character opponent = players[(currentTurn + 1) % 2];
 
-            int skillChoice = getPlayerSkillChoice(currentPlayer);
+            int skillChoice;
+
+            if (aiMode && currentPlayer == player2) {
+                skillChoice = (int) (Math.random() * 3) + 1; // random skill 1–3
+                System.out.println("\n--- AI's Turn ---");
+                displayBattleStatus(currentPlayer);
+                System.out.println("AI chooses skill " + skillChoice + "!");
+            } else {
+                skillChoice = getPlayerSkillChoice(currentPlayer);
+            }
+
             battleSystem.executePlayerTurn(currentPlayer, opponent, skillChoice);
 
             if (!opponent.isAlive()) {
