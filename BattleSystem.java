@@ -26,6 +26,9 @@ public class BattleSystem {
             case 3:
                 current.ultimateAttack(opponent);
                 break;
+            case 4:
+                current.rest(current);
+                break;
             default:
                 System.out.println("Invalid skill choice! Skipping turn.");
                 break;
@@ -33,7 +36,7 @@ public class BattleSystem {
     }
 
 
-     //Check if the battle is over
+    //Check if the battle is over
 
     public boolean isBattleOver(Character player1, Character player2) {
         return !player1.isAlive() || !player2.isAlive();

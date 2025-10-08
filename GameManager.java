@@ -69,6 +69,7 @@ public class GameManager {
         System.out.println("1 = Basic (low dmg, 0 mana)");
         System.out.println("2 = Skill (med dmg, mana cost)");
         System.out.println("3 = Ultimate (high dmg, high mana cost)");
+        System.out.println("4 = Rest (heal 20HP)");
         System.out.println("====================================");
 
 
@@ -91,6 +92,7 @@ public class GameManager {
         System.out.println("1 = Basic (low dmg, 0 mana)");
         System.out.println("2 = Skill (med dmg, mana cost)");
         System.out.println("3 = Ultimate (high dmg, high mana cost)");
+        System.out.println("4 = Rest (heal 20HP)");
         System.out.println("====================================");
 
 
@@ -129,7 +131,7 @@ public class GameManager {
             int skillChoice;
 
             if (aiMode && currentPlayer == player2) {
-                skillChoice = (int) (Math.random() * 3) + 1; // random skill 1–3
+                skillChoice = (int) (Math.random() * 4) + 1; // random skill 1–3
                 System.out.println("\n--- AI's Turn ---");
                 displayBattleStatus(currentPlayer);
                 System.out.println("AI chooses skill " + skillChoice + "!");
@@ -151,8 +153,8 @@ public class GameManager {
     private int getPlayerSkillChoice(Character currentPlayer) {
         System.out.println("\n--- " + currentPlayer.getName() + "'s Turn ---");
         displayBattleStatus(currentPlayer);
-        System.out.print("Choose skill (1=Basic, 2=Skill, 3=Ultimate): ");
-        return getValidInput(1, 3);
+        System.out.print("Choose skill (1=Basic, 2=Skill, 3=Ultimate, 4=Rest): ");
+        return getValidInput(1, 4);
     }
 
     private void displayBattleStatus(Character currentPlayer) {

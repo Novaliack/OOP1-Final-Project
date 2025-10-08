@@ -18,4 +18,9 @@ class Jollibee extends Character{
     public void ultimateAttack(Character target) {
         performAttack(target,40, 50, 60, "ultimate");
     }
+
+    @Override
+    public void rest(Character target) {
+        performAttack(target,-20, -20, 0, "Rest");
+    }
 }
