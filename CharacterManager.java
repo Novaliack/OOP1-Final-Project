@@ -134,7 +134,7 @@ public class CharacterManager {
         System.out.println(blue + "Health: " + reset + mascot.getHealth() + "/" + mascot.getMaxHealth());
         System.out.println(blue + "Mana: " + reset + mascot.getCurrentMana() + "/" + mascot.getMaxMana());
 
-        /* add this when included in CHARACTER.JAVA
+        /* for power, speed, and defense
         System.out.println("Power: " + mascot.getPower());
         System.out.println("Speed: " + mascot.getSpeed());
         System.out.println("Defense: " + mascot.getDefense());

@@ -3,15 +3,19 @@ package com.batakers.thehungerbites.characterList;
 import com.batakers.thehungerbites.Character;
 
 public class Wendys extends Character {
+
+    public static final String reset = "\u001B[0m";
+    public static final String yellow = "\u001B[33m";
+
     public Wendys() {
         super("Wendy's", 140, 50, 5);
 
         this.title = "Fresh, Never Frozen!";
         this.backstory = "Wendy’s focuses on precision and the ability to outlast opponents with a balance of healing and damage.";
 
-        this.basicAttack = "Burger Bash – Moderate damage, 15% chance to cause bleeding.";
-        this.skillAttack = "Spicy Nugget Storm – Reduces enemy defense by 10%.";
-        this.ultimateAttack = "Frosty Freeze – Massive damage and heals herself.";
+        this.basicAttack = yellow + "Burger Bash" + reset + " – Moderate damage, 15% chance to cause bleeding.";
+        this.skillAttack = yellow + "Spicy Nugget Storm" + reset + " – Reduces enemy defense by 10%.";
+        this.ultimateAttack = yellow + "Frosty Freeze" + reset + " – Massive damage and heals herself.";
     }
 
     @Override
@@ -27,5 +31,10 @@ public class Wendys extends Character {
     @Override
     public void ultimateAttack(Character target) {
         performAttack(target, 40, 52, 60, "Frosty Freeze");
+    }
+
+
+    public void rest(Character target) {
+        performAttack(target,-20, -20, 0, "Rest");
     }
 }

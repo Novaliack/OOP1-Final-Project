@@ -35,6 +35,12 @@ public abstract class Character {
     
     //perform atks
     protected void performAttack(Character target, int minDamage, int maxDamage, int manaCost, String skillName) {
+        //added
+        if(skillName.equals("Rest")) {
+            System.out.println(this.name + " heals themselves! +20 HP!");
+            return;
+        }
+
         if (this.currMana < manaCost) {
             System.out.println(this.name + " does not have enough mana for " + skillName + "! (Costs " + manaCost + ", has " + this.currMana + ")");
             return;
@@ -50,7 +56,9 @@ public abstract class Character {
     public abstract void skillAttack(Character target);
     
     public abstract void ultimateAttack(Character target);
-    
+
+    public abstract void rest(Character target); //added
+
     //method to take damage
     public void takeDamage(int damage) {
         this.hp -= damage;
@@ -58,6 +66,7 @@ public abstract class Character {
             this.hp = 0;
         }
     }
+
     //check if char is alive
     public boolean isAlive() {
         return this.hp > 0;
@@ -78,21 +87,11 @@ public abstract class Character {
     public int getMaxMana() {
         return this.maxMana;
     }
-    public String getTitle() {
-        return this.title;
-    }
+    public String getTitle() { return this.title; }
     public String getBackstory() {
         return this.backstory;
     }
-    public String getBasicAttack() {
-        return this.basicAttack;
-    }
-    public String getSkillAttack() {
-        return this.skillAttack;
-    }
-    public String getUltimateAttack() {
-        return this.ultimateAttack;
-    }
-
-    
+    public String getBasicAttack() { return this.basicAttack; }
+    public String getSkillAttack() { return this.skillAttack; }
+    public String getUltimateAttack() { return this.ultimateAttack; }
 }
