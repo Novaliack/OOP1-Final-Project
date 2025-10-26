@@ -57,7 +57,8 @@ public abstract class Character {
     
     public abstract void ultimateAttack(Character target);
 
-    public abstract void rest(Character target); //added
+    //added
+    public abstract void rest(Character target);
 
     //method to take damage
     public void takeDamage(int damage) {
