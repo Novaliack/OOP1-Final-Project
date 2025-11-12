@@ -64,7 +64,7 @@ public class CharacterManager {
 
             while (true) {
                 System.out.print("Would you like to select this mascot? (Y/N): ");
-                String decision = scanner.nextLine().trim().toLowerCase();
+                String decision = scanner.next().trim().toLowerCase();
 
                 if (decision.equals("y") || decision.equals("Y")) {
                     Character chosen = createCharacter(index + 1);
