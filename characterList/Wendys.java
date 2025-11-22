@@ -8,7 +8,7 @@ public class Wendys extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Wendys() {
-        super("Wendy's", 140, 50, 5);
+        super("Wendy's", 140, 70, 5);
 
         this.title = "Fresh, Never Frozen!";
         this.backstory = "Wendy’s focuses on precision and the ability to outlast opponents with a balance of healing and damage.";
@@ -30,7 +30,7 @@ public class Wendys extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 40, 52, 60, "Frosty Freeze");
+        performAttack(target, 40, 52, 55, "Frosty Freeze");
     }
 
 
