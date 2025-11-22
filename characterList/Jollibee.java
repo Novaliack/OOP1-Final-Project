@@ -8,7 +8,7 @@ public class Jollibee extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Jollibee(){
-        super("Jollibee", 140, 50, 5);
+        super("Jollibee", 140, 80, 5);
 
         this.title = "The Bee of Victory!";
         this.backstory = "Jollibee is the lively and spirited mascot who prides himself on showing that fast food can win hearts.\n" +
@@ -31,7 +31,7 @@ public class Jollibee extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target,40, 50, 60, "Sweet Victory");
+        performAttack(target,40, 50, 55, "Sweet Victory");
     }
 
 
