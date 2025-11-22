@@ -8,7 +8,7 @@ public class TacoBell extends Character {
     public static final String yellow = "\u001B[33m";
 
     public TacoBell() {
-        super("Taco Bell", 120, 55, 5);
+        super("Taco Bell", 120, 80, 5);
 
         this.title = "Live Mas, Battle Harder!";
         this.backstory = "Taco Bell brings the heat with his spicy, unpredictable nature. Quick bursts of damage keep his enemies on their toes.";
