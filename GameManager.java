@@ -3,12 +3,13 @@ package com.batakers.thehungerbites;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class GameManager {
     private Scanner scanner = new Scanner(System.in);
     private CharacterManager characterManager = new CharacterManager();
     private BattleSystem battleSystem = new BattleSystem();
     private boolean aiMode = false; // track if playing vs AI
-
+    private boolean arcadeMode = false;
     //ascii colors - main
     public static final String reset = "\u001B[0m";
     public static final String red = "\u001B[31m";
@@ -61,11 +62,10 @@ public class GameManager {
             showAnimatedTitle();
 
 
-            int choice = getValidInput(1, 3);
+            int choice = getValidInput(1, 4);
 
             switch (choice) {
                 case 1:
-                    aiMode = false;
                     startPlayerVsPlayer();
                     break;
                 case 2:
@@ -73,6 +73,10 @@ public class GameManager {
                     startPlayerVsAi();
                     break;
                 case 3:
+                    arcadeMode = true;
+                    startArcade();
+                    break;
+                case 4:
                     running = false;
                     System.out.println("Thanks for playing The Hunger Bites!");
                     break;
@@ -166,7 +170,8 @@ public class GameManager {
         String[] options = {
                 "1. Player vs Player",
                 "2. Player vs AI",
-                "3. Exit",
+                "3. Arcade Mode",
+                "4. Exit",
         };
         int totalWidth = 120;
 
@@ -222,6 +227,181 @@ public class GameManager {
         startBattle(player1, player2);
     }
 
+    private void startArcade() {
+        System.out.println("\n\n\n\n\n");
+        String[] lines = {
+                green + "    ===  Arcade Mode  ===",
+                blue + "     Welcome to The Hunger Bites! Arcade Mode!!!!",
+                red + "Skills:" + reset,
+                "1 = Basic (low dmg, 0 mana)",
+                "2 = Skill (med dmg, mana cost)",
+                "3 = Ultimate (high dmg, high mana cost)",
+                "4 = Rest (heal 20HP)",
+                "━─━─────────────༺༻─────────────━─━"
+        };
+
+        int totalWidth = 120;
+        int blockWidth = 35;
+
+        for (String line : lines) {
+            int padding = (totalWidth - blockWidth) / 2;
+            System.out.println(" ".repeat(Math.max(0, padding)) + line);
+        }
+
+        // Select player character once
+        Character player = selectCharacterWithValidation(cyanBold + "Player");
+        player = applyArcadeNaming(player);
+
+        // Create array of all possible character IDs (1-8)
+        int[] characterIds = {1, 2, 3, 4, 5, 6, 7, 8};
+
+        // Remove player's character ID from the array
+        int playerId = -1;
+        for (int i = 0; i < characterIds.length; i++) {
+            Character testChar = characterManager.createCharacter(characterIds[i]);
+            if (testChar.getName().equals(player.getName())) {
+                playerId = characterIds[i];
+                // Mark this ID as used (set to 0)
+                characterIds[i] = 0;
+                break;
+            }
+        }
+
+        // Shuffle the remaining character IDs
+        for (int i = characterIds.length - 1; i > 0; i--) {
+            int j = (int) (Math.random() * (i + 1));
+            int temp = characterIds[i];
+            characterIds[i] = characterIds[j];
+            characterIds[j] = temp;
+        }
+
+        int round = 1;
+        boolean playerWonArcade = true;
+
+        // Fight 5 unique AI characters
+        for (int i = 0; i < characterIds.length && round <= 5; i++) {
+            if (characterIds[i] == 0 || characterIds[i] == playerId) continue;
+
+            Character ai = characterManager.createCharacter(characterIds[i]);
+            System.out.println(blue + "\n--- Round " + round + " ---" + reset);
+            System.out.println("Next Battle: " + ai.getName() + " appears!\n");
+
+            // === FIX: Set arcade mode to true before battle ===
+            arcadeMode = true;
+
+            // Start battle
+            startBattle(player, ai);
+
+            // === FIX: Set arcade mode back to false after battle ===
+            arcadeMode = false;
+
+            // Show reward selection after winning a round
+            if (player.isAlive() && round < 5) {
+                showRewardSelection(player);
+            }
+
+            // Check if player died
+            if (!player.isAlive()) {
+                playerWonArcade = false;
+                break;
+            }
+
+            round++;
+
+            if (round <= 5 && player.isAlive()) {
+                System.out.print(blue + "\nPress Enter to continue to next round..." + reset);
+                scanner.nextLine();
+                scanner.nextLine(); // Extra nextLine to clear buffer
+            }
+        }
+
+        // Final arcade result
+        if (playerWonArcade && player.isAlive()) {
+            System.out.println(gold + "\n🎉 ARCADE MODE COMPLETE! 🎉" + reset);
+            System.out.println(green + "You defeated all 5 opponents! You are the ultimate champion!" + reset);
+        } else {
+            System.out.println(red + "\n💀 GAME OVER 💀" + reset);
+            System.out.println(yellow + "You made it to Round " + (round - 1) + ". Better luck next time!" + reset);
+        }
+    }
+    private void showRewardSelection(Character player) {
+        System.out.println("\u001B[38;5;220m" + "\n🎁 ROUND COMPLETE! Choose your reward: 🎁" + "\u001B[0m");
+        System.out.println("1. " + "\u001B[32m" + "Heal 30% of Max HP & Full Mana" + "\u001B[0m");
+        System.out.println("2. " + "\u001B[34m" + "+10% Damage Boost" + "\u001B[0m");
+        System.out.println("3. " + "\u001B[1;35m" + "+25 Max Health" + "\u001B[0m");
+        System.out.println("4. " + "\u001B[33m" + "+15 Max Mana" + "\u001B[0m");
+
+        System.out.print("\u001B[34m" + "Choose reward (1-4): " + "\u001B[0m");
+        int choice = getValidInput(1, 4);
+
+        switch (choice) {
+            case 1:
+                // Heal 30% of max HP AND full mana restore
+                int healAmount = (int)(player.getMaxHealth() * 0.3);
+                int newHealth = Math.min(player.getHealth() + healAmount, player.getMaxHealth());
+                player.setHealth(newHealth);
+                player.setCurrentMana(player.getMaxMana()); // Full mana restore
+                System.out.println("\u001B[32m" + "✓ Healed " + healAmount + " HP! (" + newHealth + "/" + player.getMaxHealth() + ")" + "\u001B[0m");
+                System.out.println("\u001B[32m" + "✓ Mana fully restored! (" + player.getCurrentMana() + "/" + player.getMaxMana() + ")" + "\u001B[0m");
+                break;
+            case 2:
+                // Damage boost
+                player.increaseDamage(0.10);
+                System.out.println("\u001B[34m" + "✓ Damage increased by 10%! (Total: +" +
+                        (int)((player.getDamageMultiplier() - 1.0) * 100) + "%)" + "\u001B[0m");
+                break;
+            case 3:
+                // Max health increase
+                player.setMaxHealth(player.getMaxHealth() + 25);
+                player.setHealth(player.getHealth() + 25); // Also heal the new HP
+                System.out.println("\u001B[1;35m" + "✓ Max health increased by 25!" + "\u001B[0m");
+                break;
+            case 4:
+                // Max mana increase
+                player.setMaxMana(player.getMaxMana() + 15);
+                player.setCurrentMana(player.getCurrentMana() + 15); // Also restore the new mana
+                System.out.println("\u001B[33m" + "✓ Max mana increased by 15!" + "\u001B[0m");
+                break;
+        }
+
+        // Show updated stats
+        System.out.println("\u001B[32m" + "Current Stats - HP: " + player.getHealth() + "/" + player.getMaxHealth() +
+                " | Mana: " + player.getCurrentMana() + "/" + player.getMaxMana() + "\u001B[0m");
+
+        // Show damage multiplier if > 1.0
+        if (player.getDamageMultiplier() > 1.0) {
+            System.out.println("\u001B[34m" + "Damage Multiplier: " + player.getDamageMultiplier() + "x" + "\u001B[0m");
+        }
+    }
+    private Character applyArcadeNaming(Character character) {
+        String originalName = character.getName();
+        String arcadeName = getArcadeName(originalName);
+
+        if (!arcadeName.equals(originalName)) {
+            character.setName(arcadeName);
+        }
+
+        return character;
+    }
+
+    private String getArcadeName(String originalName) {
+        switch (originalName.toLowerCase()) {
+            case "jollibee":
+                return "Geoffred's pick, Jollibee";
+            case "mcdonald":
+                return "Jandyll's pick, Ronald McDonald";
+            case "burger king":
+                return "Kimjie's pick, The Burger King";
+            case "julie's":
+                return "Louella's pick, Julie's the baker";
+            case "poco":
+                return "Keeia's favourite, poco the potato";
+            default:
+                return originalName;
+        }
+    }
+
+
     private void startPlayerVsAi(){
         System.out.println();
         System.out.println();
@@ -254,9 +434,6 @@ public class GameManager {
         startBattle(player1, player2);
 
     }
-    public boolean isAi(){
-        return aiMode;
-    }
     /**
      * checks input for character
      */
@@ -281,11 +458,11 @@ public class GameManager {
 
             int skillChoice;
 
-            if (aiMode && currentPlayer == player2) {
+            if ((aiMode || arcadeMode) && currentPlayer == player2) {
                 skillChoice = (int) (Math.random() * 4) + 1; // random skill 1–3
-                System.out.println(purpleBold + "\n--- AI's Turn ---" + reset);
+                System.out.println(purpleBold + "\n--- " + currentPlayer.getName() + "'s Turn ---" + reset);
                 displayBattleStatus(currentPlayer);
-                System.out.println(red + "AI chooses skill " + reset + skillChoice + "!");
+                System.out.println(red + currentPlayer.getName() + " chooses skill " + reset + skillChoice + "!");
             } else {
                 skillChoice = getPlayerSkillChoice(currentPlayer);
             }
@@ -293,7 +470,14 @@ public class GameManager {
             battleSystem.executePlayerTurn(currentPlayer, opponent, skillChoice);
 
             if (!opponent.isAlive()) {
-                endBattle(currentPlayer, opponent);
+                // Only show full end battle screen if NOT in arcade mode
+                if (!arcadeMode) {
+                    endBattle(currentPlayer, opponent);
+                } else {
+                    // In arcade mode, just announce round winner and continue
+                    System.out.println(gold + "\n ROUND WON! " + reset);
+                    System.out.println(green + currentPlayer.getName() + " defeated " + opponent.getName() + "!" + reset);
+                }
                 break;
             }
 
@@ -353,6 +537,7 @@ public class GameManager {
         for (String line : gameOver) {
             System.out.println(centerText(line, consoleWidth));
         }
+
 
         System.out.println();
         System.out.println();

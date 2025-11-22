@@ -16,7 +16,7 @@ public abstract class Character {
     protected String basicAttack;
     protected String skillAttack;
     protected String ultimateAttack;
-    
+    private double damageMultiplier = 1.0;
     //constructor
     public Character(String name, int maxHp, int maxMana, int regenMana){
     this.name = name;
@@ -35,9 +35,11 @@ public abstract class Character {
     
     //perform atks
     protected void performAttack(Character target, int minDamage, int maxDamage, int manaCost, String skillName) {
-        //added
+        // Handle Rest separately
         if(skillName.equals("Rest")) {
             System.out.println(this.name + " heals themselves! +20 HP!");
+            this.hp = Math.min(this.maxHp, this.hp + 20);
+            System.out.println(this.name + " now has " + this.hp + "/" + this.maxHp + " HP!");
             return;
         }
 
@@ -46,9 +48,17 @@ public abstract class Character {
             return;
         }
         this.currMana -= manaCost;
-        int damage = minDamage + this.random.nextInt(maxDamage - minDamage + 1);
-        target.takeDamage(damage);
-        System.out.println(this.name + " uses " + skillName + " and deals " + damage + " damage to " + target.name + "!");
+
+        // Apply damage multiplier
+        int baseDamage = minDamage + this.random.nextInt(maxDamage - minDamage + 1);
+        int finalDamage = (int)(baseDamage * this.damageMultiplier);
+        target.takeDamage(finalDamage);
+        System.out.println(this.name + " uses " + skillName + " and deals " + finalDamage + " damage to " + target.name + "!");
+
+        // Show damage boost
+        if (this.damageMultiplier > 1.0) {
+            System.out.println("\u001B[33m" + "(+" + (int)((this.damageMultiplier - 1.0) * 100) + "% damage boost!)" + "\u001B[0m");
+        }
     }
     
     public abstract void basicAttack(Character target);
@@ -76,6 +86,9 @@ public abstract class Character {
     public String getName() {
         return this.name;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
     public int getHealth() {
         return this.hp;
     }
@@ -95,4 +108,23 @@ public abstract class Character {
     public String getBasicAttack() { return this.basicAttack; }
     public String getSkillAttack() { return this.skillAttack; }
     public String getUltimateAttack() { return this.ultimateAttack; }
+    public void setMaxHealth(int maxHealth) {
+        this.maxHp = maxHealth;
+    }
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
+    }
+    public void setHealth(int health) {
+        this.hp = Math.max(0, Math.min(health, this.maxHp));
+    }
+    public void setCurrentMana(int mana) {
+        this.currMana = Math.min(mana, this.maxMana);
+    }
+    public void increaseDamage(double multiplier) {
+        this.damageMultiplier += multiplier;
+    }
+    public double getDamageMultiplier() {
+        return this.damageMultiplier;
+    }
+
 }

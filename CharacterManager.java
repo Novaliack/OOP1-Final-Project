@@ -11,6 +11,7 @@ import com.batakers.thehungerbites.characterList.TacoBell;
 import com.batakers.thehungerbites.characterList.Wendys;
 import com.batakers.thehungerbites.characterList.Poco;
 import com.batakers.thehungerbites.characterList.Julies;
+import java.util.Random;
 
 public class CharacterManager {
     private List<Character> mascots;
@@ -23,25 +24,33 @@ public class CharacterManager {
 
     public CharacterManager() {
         mascots = new ArrayList<>();
+        mascots.add(new BurgerKing());
+        mascots.add(new Poco());
         mascots.add(new RonaldMcDonald());
         mascots.add(new Jollibee());
+        mascots.add(new Julies());
         mascots.add(new ColonelSanders());
-        mascots.add(new BurgerKing());
         mascots.add(new TacoBell());
         mascots.add(new Wendys());
-        mascots.add(new Poco());
-        mascots.add(new Julies());
+
     }
+
+
+    public Character getRandomCharacter() {
+        Random random = new Random();
+        int index = random.nextInt(4);
+        return createCharacter(index + 1);
+    }
+
 
     public Character selectCharacter(Scanner scanner, String playerName) {
         for (int i = 0; i < 6; i++) System.out.println();
         System.out.println(blue + "Welcome, " + green + playerName + blue + "! Choose your mascot!" + reset);
-
         while (true) {
             showCharacterList();
 
             System.out.print(blue + "Enter the mascot number or name to view details:" + reset);
-            String input = scanner.nextLine().trim();
+            String input = scanner.next().trim();
 
             Character selectedCharacter = null;
             int index = -1;
@@ -89,14 +98,16 @@ public class CharacterManager {
     //creates instances based on player's choice
     public Character createCharacter(int choice) {
         switch (choice) {
-            case 1: return new RonaldMcDonald();
-            case 2: return new Jollibee();
-            case 3: return new ColonelSanders();
-            case 4: return new BurgerKing();
-            case 5: return new TacoBell();
-            case 6: return new Wendys();
-            case 7: return new Poco();
-            case 8: return new Julies();
+            case 1: return new BurgerKing();
+            case 2: return new Poco();
+            case 3: return new RonaldMcDonald();
+            case 4: return new Jollibee();
+            case 5: return new Julies();
+            case 6: return new ColonelSanders();
+            case 7: return new TacoBell();
+            case 8: return new Wendys();
+
+
             default:
                 System.out.println("Invalid choice. No mascot selected.");
                 return null;
