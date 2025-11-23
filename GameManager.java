@@ -201,8 +201,8 @@ public class GameManager {
         System.out.println();
         System.out.println();
         String[] lines = {
-                green + "    ===  Player vs Player Mode  ===",
-                blue + "     Welcome to The Hunger Bites!",
+                green + "   ===  Player vs Player Mode  ===",
+                blue + "    Welcome to The Hunger Bites!",
                 red + "Skills:" + reset,
                 "1 = Basic (low dmg, 0 mana)",
                 "2 = Skill (med dmg, mana cost)",
@@ -230,14 +230,21 @@ public class GameManager {
     private void startArcade() {
         System.out.println("\n\n\n\n\n");
         String[] lines = {
-                green + "    ===  Arcade Mode  ===",
-                blue + "     Welcome to The Hunger Bites! Arcade Mode!!!!",
+                green + "       ===  Arcade Mode  ===",
+                blue + "    Welcome to The Hunger Bites!",
                 red + "Skills:" + reset,
                 "1 = Basic (low dmg, 0 mana)",
                 "2 = Skill (med dmg, mana cost)",
                 "3 = Ultimate (high dmg, high mana cost)",
                 "4 = Rest (heal 20HP)",
-                "━─━─────────────༺༻─────────────━─━"
+                "━─━─────────────༺༻─────────────━─━",
+
+                lightOrange + "Pick your favorite food mascot and battle through",
+                              "a whole meal of rivals in one intense run!",
+                              "Your health carries over between fights. So grab your power-ups" ,
+                              "after each victor to defeat the GAME MASTERS favourites.",
+                              "If you fall, it's back to the start in this one-shot challenge",
+                              "where you conquer the gauntlet or start over from the beginning!" + reset,
         };
 
         int totalWidth = 120;
@@ -247,6 +254,7 @@ public class GameManager {
             int padding = (totalWidth - blockWidth) / 2;
             System.out.println(" ".repeat(Math.max(0, padding)) + line);
         }
+
 
         // Select player character once
         Character player = selectCharacterWithValidation(cyanBold + "Player");
