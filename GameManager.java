@@ -258,7 +258,7 @@ public class GameManager {
 
         // Select player character once
         Character player = selectCharacterWithValidation(cyanBold + "Player");
-        player = applyArcadeNaming(player);
+
 
         // Create array of all possible character IDs (1-8)
         int[] characterIds = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -291,24 +291,23 @@ public class GameManager {
             if (characterIds[i] == 0 || characterIds[i] == playerId) continue;
 
             Character ai = characterManager.createCharacter(characterIds[i]);
+            applyArcadeNaming(ai);
             System.out.println(blue + "\n--- Round " + round + " ---" + reset);
             System.out.println("Next Battle: " + ai.getName() + " appears!\n");
 
-            // === FIX: Set arcade mode to true before battle ===
+
             arcadeMode = true;
 
             // Start battle
             startBattle(player, ai);
 
-            // === FIX: Set arcade mode back to false after battle ===
+
             arcadeMode = false;
 
             // Show reward selection after winning a round
             if (player.isAlive() && round < 5) {
                 showRewardSelection(player);
             }
-
-            // Check if player died
             if (!player.isAlive()) {
                 playerWonArcade = false;
                 break;
