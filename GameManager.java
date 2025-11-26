@@ -260,8 +260,8 @@ public class GameManager {
         Character player = selectCharacterWithValidation(cyanBold + "Player");
 
 
-        // Create array of all possible character IDs (1-8)
-        int[] characterIds = {1, 2, 3, 4, 5, 6, 7, 8};
+        // Create array of the 5 picks (1-5)
+        int[] characterIds = {1, 2, 3, 4, 5};
 
         // Remove player's character ID from the array
         int playerId = -1;
@@ -276,7 +276,7 @@ public class GameManager {
         }
 
         // Shuffle the remaining character IDs
-        for (int i = characterIds.length - 1; i > 0; i--) {
+        for (int i = 5 - 1; i > 0; i--) {
             int j = (int) (Math.random() * (i + 1));
             int temp = characterIds[i];
             characterIds[i] = characterIds[j];
@@ -287,7 +287,7 @@ public class GameManager {
         boolean playerWonArcade = true;
 
         // Fight 5 unique AI characters
-        for (int i = 0; i < characterIds.length && round <= 5; i++) {
+        for (int i = 0; i < 5 && round <= 5; i++) {
             if (characterIds[i] == 0 || characterIds[i] == playerId) continue;
 
             Character ai = characterManager.createCharacter(characterIds[i]);
@@ -324,17 +324,17 @@ public class GameManager {
 
         // Final arcade result
         if (playerWonArcade && player.isAlive()) {
-            System.out.println(gold + "\n🎉 ARCADE MODE COMPLETE! 🎉" + reset);
+            System.out.println(gold + "\n ARCADE MODE COMPLETE! " + reset);
             System.out.println(green + "You defeated all 5 opponents! You are the ultimate champion!" + reset);
         } else {
-            System.out.println(red + "\n💀 GAME OVER 💀" + reset);
+            System.out.println(red + "\n GAME OVER " + reset);
             System.out.println(yellow + "You made it to Round " + (round - 1) + ". Better luck next time!" + reset);
         }
     }
     private void showRewardSelection(Character player) {
-        System.out.println("\u001B[38;5;220m" + "\n🎁 ROUND COMPLETE! Choose your reward: 🎁" + "\u001B[0m");
-        System.out.println("1. " + "\u001B[32m" + "Heal 30% of Max HP & Full Mana" + "\u001B[0m");
-        System.out.println("2. " + "\u001B[34m" + "+10% Damage Boost" + "\u001B[0m");
+        System.out.println("\u001B[38;5;220m" + "\n ROUND COMPLETE! Choose your reward: " + "\u001B[0m");
+        System.out.println("1. " + "\u001B[32m" + "Heal 50% HP & Full Mana" + "\u001B[0m");
+        System.out.println("2. " + "\u001B[34m" + "+100% Damage Boost" + "\u001B[0m");
         System.out.println("3. " + "\u001B[1;35m" + "+25 Max Health" + "\u001B[0m");
         System.out.println("4. " + "\u001B[33m" + "+15 Max Mana" + "\u001B[0m");
 
@@ -343,8 +343,8 @@ public class GameManager {
 
         switch (choice) {
             case 1:
-                // Heal 30% of max HP AND full mana restore
-                int healAmount = (int)(player.getMaxHealth() * 0.3);
+                // Heal max HP AND full mana restore
+                int healAmount = (int)(player.getMaxHealth() * .5);
                 int newHealth = Math.min(player.getHealth() + healAmount, player.getMaxHealth());
                 player.setHealth(newHealth);
                 player.setCurrentMana(player.getMaxMana()); // Full mana restore
@@ -353,8 +353,8 @@ public class GameManager {
                 break;
             case 2:
                 // Damage boost
-                player.increaseDamage(0.10);
-                System.out.println("\u001B[34m" + "✓ Damage increased by 10%! (Total: +" +
+                player.increaseDamage(1);
+                System.out.println("\u001B[34m" + "✓ Damage increased by 100%! (Total: +" +
                         (int)((player.getDamageMultiplier() - 1.0) * 100) + "%)" + "\u001B[0m");
                 break;
             case 3:
@@ -395,7 +395,7 @@ public class GameManager {
         switch (originalName.toLowerCase()) {
             case "jollibee":
                 return "Geoffred's pick, Jollibee";
-            case "mcdonald":
+            case "ronald mcdonald":
                 return "Jandyll's pick, Ronald McDonald";
             case "burger king":
                 return "Kimjie's pick, The Burger King";
@@ -426,8 +426,8 @@ public class GameManager {
                 "━─━─────────────༺༻─────────────━─━"
         };
 
-        int totalWidth = 120; // match this to your title width
-        int blockWidth = 35; // approximate width of your text block
+        int totalWidth = 120;
+        int blockWidth = 35;
 
         for (String line : lines) {
             int padding = (totalWidth - blockWidth) / 2;
@@ -441,9 +441,7 @@ public class GameManager {
         startBattle(player1, player2);
 
     }
-    /**
-     * checks input for character
-     */
+    // checks input for character
     private Character selectCharacterWithValidation(String playerName) {
         // Let CharacterManager handle the character logic
         // But GameManager handles the input validation
@@ -469,6 +467,7 @@ public class GameManager {
 
             int skillChoice;
 
+            //AI FOR BATTLESS
             if ((aiMode || arcadeMode) && currentPlayer == player2) {
                 skillChoice = (int) (Math.random() * 4) + 1;
                 System.out.println(purpleBold + "\n--- " + currentPlayer.getName() + "'s Turn ---" + reset);
@@ -508,9 +507,7 @@ public class GameManager {
                 currentPlayer.getCurrentMana() + "/" + currentPlayer.getMaxMana());
     }
 
-    /**
-     * for checking general input
-     */
+    // for checking general input
     private int getValidInput(int min, int max) {
         while (true) {
             try {
@@ -554,7 +551,6 @@ public class GameManager {
         System.out.println(centerText(loser.getName() + " has fallen!", consoleWidth));
         //will add a callout later
         System.out.println(lightYellow + centerText("═══ \uD80C\uDE86 YOU WON! \uD80C\uDE87 ═══", consoleWidth));
-        //
         System.out.println(gold + centerText("\uD83D\uDC51 " + winner.getName() + " is the winner! \uD83D\uDC51", consoleWidth) + reset);
         System.out.println();
         System.out.println(lightOrange + centerText("Battle Statistics:", consoleWidth));

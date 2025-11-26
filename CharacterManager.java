@@ -98,11 +98,14 @@ public class CharacterManager {
     //creates instances based on player's choice
     public Character createCharacter(int choice) {
         switch (choice) {
+            //5 picks for arcade
             case 1: return new BurgerKing();
             case 2: return new Poco();
             case 3: return new RonaldMcDonald();
             case 4: return new Jollibee();
             case 5: return new Julies();
+
+            //not picked
             case 6: return new ColonelSanders();
             case 7: return new TacoBell();
             case 8: return new Wendys();
