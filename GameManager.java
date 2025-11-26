@@ -223,7 +223,8 @@ public class GameManager {
         // Character selection with validation
         Character player1 = selectCharacterWithValidation(cyanBold + "Player 1" + reset);
         Character player2 = selectCharacterWithValidation(purpleBold + "Player 2" + reset);
-
+        player1.setName("Player 1 (" + player1.getName() + ")");
+        player2.setName("Player 2 (" + player2.getName() + ")");
         startBattle(player1, player2);
     }
 
@@ -291,19 +292,14 @@ public class GameManager {
             if (characterIds[i] == 0 || characterIds[i] == playerId) continue;
 
             Character ai = characterManager.createCharacter(characterIds[i]);
-            applyArcadeNaming(ai);
+            applyNameChange(ai);
             System.out.println(blue + "\n--- Round " + round + " ---" + reset);
             System.out.println("Next Battle: " + ai.getName() + " appears!\n");
-
 
             arcadeMode = true;
 
             // Start battle
             startBattle(player, ai);
-
-
-            arcadeMode = false;
-
             // Show reward selection after winning a round
             if (player.isAlive() && round < 5) {
                 showRewardSelection(player);
@@ -326,9 +322,11 @@ public class GameManager {
         if (playerWonArcade && player.isAlive()) {
             System.out.println(gold + "\n ARCADE MODE COMPLETE! " + reset);
             System.out.println(green + "You defeated all 5 opponents! You are the ultimate champion!" + reset);
+            arcadeMode = false;
         } else {
             System.out.println(red + "\n GAME OVER " + reset);
             System.out.println(yellow + "You made it to Round " + (round - 1) + ". Better luck next time!" + reset);
+            arcadeMode = false;
         }
     }
     private void showRewardSelection(Character player) {
@@ -380,32 +378,58 @@ public class GameManager {
             System.out.println("\u001B[34m" + "Damage Multiplier: " + player.getDamageMultiplier() + "x" + "\u001B[0m");
         }
     }
-    private Character applyArcadeNaming(Character character) {
-        String originalName = character.getName();
-        String arcadeName = getArcadeName(originalName);
+    private Character applyNameChange(Character character) {
 
-        if (!arcadeName.equals(originalName)) {
-            character.setName(arcadeName);
+        String originalName = character.getName();
+        String changedName = getChangedName(originalName);
+
+        if (!changedName.equals(originalName)) {
+            character.setName(changedName);
         }
 
         return character;
     }
 
-    private String getArcadeName(String originalName) {
-        switch (originalName.toLowerCase()) {
-            case "jollibee":
-                return "Geoffred's pick, Jollibee";
-            case "ronald mcdonald":
-                return "Jandyll's pick, Ronald McDonald";
-            case "burger king":
-                return "Kimjie's pick, The Burger King";
-            case "julie's":
-                return "Louella's pick, Julie's the baker";
-            case "poco":
-                return "Keeia's favourite, poco the potato";
-            default:
-                return originalName;
+    private String getChangedName(String originalName) {
+        if(arcadeMode){
+            switch (originalName.toLowerCase()) {
+                case "jollibee":
+                    return "Geoffred's pick, Jollibee";
+                case "ronald mcdonald":
+                    return "Jandyll's pick, Ronald McDonald";
+                case "burger king":
+                    return "Kimjie's pick, The Burger King";
+                case "julie's":
+                    return "Louella's pick, Julie's the baker";
+                case "poco":
+                    return "Keeia's favourite, poco the potato";
+                default:
+                    return originalName;
+            }
         }
+        if(aiMode){
+            switch (originalName.toLowerCase()) {
+                case "jollibee":
+                    return "AI Jollibee";
+                case "ronald mcdonald":
+                    return "AI Ronald McDonald";
+                case "burger king":
+                    return "AI Burger King";
+                case "julie's":
+                    return "AI Julie's";
+                case "poco":
+                    return "AI Poco";
+                case "colonel sanders":
+                    return "AI Colonel Sanders";
+                case "taco bell":
+                    return "AI Taco Bell";
+                case "wendy's":
+                    return "AI Wendy's";
+                default:
+                    return originalName;
+            }
+        }
+        return originalName;
     }
 
 
@@ -437,7 +461,7 @@ public class GameManager {
         // Character selection with validation
         Character player1 = selectCharacterWithValidation(cyanBold + "Player 1");
         Character player2 = selectCharacterWithValidation(purpleBold + "AI");
-
+        applyNameChange(player2);
         startBattle(player1, player2);
 
     }
