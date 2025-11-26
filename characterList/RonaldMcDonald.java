@@ -8,7 +8,7 @@ public class RonaldMcDonald extends Character {
     public static final String yellow = "\u001B[33m";
 
     public RonaldMcDonald() {
-        super("Ronald McDonald", 130, 45, 5);
+        super("Ronald McDonald", 130, 75, 5);
 
         this.title = "I’m Lovin' It, and You Will Too!";
         this.backstory = "McDonald's is the undisputed king of fast food, a place where comfort food reigns supreme.\n" +
@@ -32,7 +32,7 @@ public class RonaldMcDonald extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 40, 50, 60, "McFlurry Storm");
+        performAttack(target, 40, 50, 55, "McFlurry Storm");
     }
 
 

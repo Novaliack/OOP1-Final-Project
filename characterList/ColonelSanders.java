@@ -8,7 +8,7 @@ public class ColonelSanders extends Character {
     public static final String yellow = "\u001B[33m";
 
     public ColonelSanders() {
-        super("Colonel Sanders", 160, 50, 5);
+        super("Colonel Sanders", 160, 70, 5);
 
         this.title = "Finger Lickin' Good Combat!";
         this.backstory = "KFC brings the heat with his secret recipe of abilities, offering a mix of high-damage attacks and powerful debuffs.";
@@ -30,7 +30,7 @@ public class ColonelSanders extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 42, 55, 60, "Colonel's Command");
+        performAttack(target, 42, 55, 55, "Colonel's Command");
     }
 
 

@@ -8,7 +8,7 @@ public class Poco extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Poco() {
-        super("Poco", 150, 60, 5);
+        super("Poco", 150, 75, 5);
 
         this.title = "Master of Fries!";
         this.backstory = "Potato Corner may be the underdog, but his crispy fries pack a punch with endurance and flavor.";
@@ -30,7 +30,7 @@ public class Poco extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 40, 52, 60, "Fry Fortress");
+        performAttack(target, 40, 52, 50, "Fry Fortress");
     }
 
 

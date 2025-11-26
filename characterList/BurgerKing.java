@@ -8,7 +8,7 @@ public class BurgerKing extends Character {
     public static final String yellow = "\u001B[33m";
 
     public BurgerKing() {
-        super("Burger King", 150, 60, 5);
+        super("Burger King", 150, 70, 5);
 
         this.title = "The King of Burgers Rules the Battlefield!";
         this.backstory = "Burger King is bold and confident, dominating the battlefield with brute force and control.";
@@ -30,7 +30,7 @@ public class BurgerKing extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 45, 55, 60, "Kingdom of Flames");
+        performAttack(target, 45, 55, 50, "Kingdom of Flames");
     }
 
 

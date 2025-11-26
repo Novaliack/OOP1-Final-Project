@@ -8,7 +8,7 @@ public class Julies extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Julies() {
-        super("Julie's", 120, 40, 5);
+        super("Julie's", 120, 80, 5);
 
         this.title = "Freshly Baked, Fiercely Battle-Ready!";
         this.backstory = "Julie spreads joy through baked goods that can heal and harm with magic frosting.";
