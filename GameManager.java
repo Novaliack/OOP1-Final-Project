@@ -207,7 +207,7 @@ public class GameManager {
                 "1 = Basic (low dmg, 0 mana)",
                 "2 = Skill (med dmg, mana cost)",
                 "3 = Ultimate (high dmg, high mana cost)",
-                "4 = Rest (heal 20HP)",
+                "4 = Rest (heal 10% of max)",
                 "━─━─────────────༺༻─────────────━─━"
         };
 
@@ -244,7 +244,7 @@ public class GameManager {
                 "1 = Basic (low dmg, 0 mana)",
                 "2 = Skill (med dmg, mana cost)",
                 "3 = Ultimate (high dmg, high mana cost)",
-                "4 = Rest (heal 20HP)",
+                "4 = Rest (heal 10% of max)",
                 "━─━─────────────༺༻─────────────━─━",
         };
 
@@ -457,7 +457,7 @@ public class GameManager {
                 "1 = Basic (low dmg, 0 mana)",
                 "2 = Skill (med dmg, mana cost)",
                 "3 = Ultimate (high dmg, high mana cost)",
-                "4 = Rest (heal 20HP)",
+                "4 = Rest (heal 10% of max)",
                 "━─━─────────────༺༻─────────────━─━"
         };
 
