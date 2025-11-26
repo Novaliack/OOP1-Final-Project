@@ -458,15 +458,19 @@ public class GameManager {
 
         Character[] players = {player1, player2};
         int currentTurn = 0;
+        int turnCounter = 1;
 
         while (!battleSystem.isBattleOver(player1, player2)) {
+            System.out.println();
+            System.out.println(yellow + "=== Turn " + turnCounter + " ===" + reset);
+
             Character currentPlayer = players[currentTurn % 2];
             Character opponent = players[(currentTurn + 1) % 2];
 
             int skillChoice;
 
             if ((aiMode || arcadeMode) && currentPlayer == player2) {
-                skillChoice = (int) (Math.random() * 4) + 1; // random skill 1–3
+                skillChoice = (int) (Math.random() * 4) + 1;
                 System.out.println(purpleBold + "\n--- " + currentPlayer.getName() + "'s Turn ---" + reset);
                 displayBattleStatus(currentPlayer);
                 System.out.println(red + currentPlayer.getName() + " chooses skill " + reset + skillChoice + "!");
@@ -477,11 +481,9 @@ public class GameManager {
             battleSystem.executePlayerTurn(currentPlayer, opponent, skillChoice);
 
             if (!opponent.isAlive()) {
-                // Only show full end battle screen if NOT in arcade mode
                 if (!arcadeMode) {
                     endBattle(currentPlayer, opponent);
                 } else {
-                    // In arcade mode, just announce round winner and continue
                     System.out.println(gold + "\n ROUND WON! " + reset);
                     System.out.println(green + currentPlayer.getName() + " defeated " + opponent.getName() + "!" + reset);
                 }
@@ -489,9 +491,9 @@ public class GameManager {
             }
 
             currentTurn++;
+            turnCounter++;
         }
     }
-
     private int getPlayerSkillChoice(Character currentPlayer) {
         System.out.println(cyanBold + "\n--- " + currentPlayer.getName() + "'s Turn ---" + reset);
         displayBattleStatus(currentPlayer);
