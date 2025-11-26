@@ -225,33 +225,44 @@ public class GameManager {
         Character player2 = selectCharacterWithValidation(purpleBold + "Player 2" + reset);
         player1.setName("Player 1 (" + player1.getName() + ")");
         player2.setName("Player 2 (" + player2.getName() + ")");
+
+        player1.setPlayer(true);
+        player2.setPlayer(false);
+
         startBattle(player1, player2);
     }
 
     private void startArcade() {
         System.out.println("\n\n\n\n\n");
-        String[] lines = {
+        String[] header = {
                 green + "       ===  Arcade Mode  ===",
                 blue + "    Welcome to The Hunger Bites!",
+        };
+
+        String[] skills = {
                 red + "Skills:" + reset,
                 "1 = Basic (low dmg, 0 mana)",
                 "2 = Skill (med dmg, mana cost)",
                 "3 = Ultimate (high dmg, high mana cost)",
                 "4 = Rest (heal 20HP)",
                 "━─━─────────────༺༻─────────────━─━",
-
-                lightOrange + "Pick your favorite food mascot and battle through",
-                              "a whole meal of rivals in one intense run!",
-                              "Your health carries over between fights. So grab your power-ups" ,
-                              "after each victor to defeat the GAME MASTERS favourites.",
-                              "If you fall, it's back to the start in this one-shot challenge",
-                              "where you conquer the gauntlet or start over from the beginning!" + reset,
         };
 
         int totalWidth = 120;
         int blockWidth = 35;
 
-        for (String line : lines) {
+        for (String line : header) {
+            int padding = (totalWidth - blockWidth) / 2;
+            System.out.println(" ".repeat(Math.max(0, padding)) + line);
+        }
+
+        System.out.println(lightOrange + "               Pick your favorite food mascot and battle through a whole meal of rivals in one intense run!");
+        System.out.println(lightOrange + "               Your health carries over between fights. So grab your power-ups after each victor to defeat");
+        System.out.println(lightOrange + "                the GAME MASTERS favorites. If you fall, it's back to the start in this one-shot challenge");
+        System.out.println(lightOrange + "                            where you conquer the gauntlet or start over from the beginning!");
+        System.out.println();
+
+        for (String line : skills) {
             int padding = (totalWidth - blockWidth) / 2;
             System.out.println(" ".repeat(Math.max(0, padding)) + line);
         }
@@ -461,6 +472,10 @@ public class GameManager {
         // Character selection with validation
         Character player1 = selectCharacterWithValidation(cyanBold + "Player 1");
         Character player2 = selectCharacterWithValidation(purpleBold + "AI");
+
+        player1.setPlayer(true);
+        player2.setPlayer(false);
+
         applyNameChange(player2);
         startBattle(player1, player2);
 
@@ -573,9 +588,17 @@ public class GameManager {
         System.out.println();
         System.out.println();
         System.out.println(centerText(loser.getName() + " has fallen!", consoleWidth));
-        //will add a callout later
-        System.out.println(lightYellow + centerText("═══ \uD80C\uDE86 YOU WON! \uD80C\uDE87 ═══", consoleWidth));
-        System.out.println(gold + centerText("\uD83D\uDC51 " + winner.getName() + " is the winner! \uD83D\uDC51", consoleWidth) + reset);
+
+        if(winner.isPlayer()) {
+            //player won
+            System.out.println(lightYellow + centerText("═══ \uD80C\uDE86 YOU WON! \uD80C\uDE87 ═══", consoleWidth));
+            System.out.println(gold + centerText("\uD83D\uDC51 " + winner.getName() + " is the winner! \uD83D\uDC51", consoleWidth) + reset);
+        } else {
+            //player lost
+            System.out.println(redOrange + centerText("═══ \uD80C\uDE88 YOU LOST! \uD80C\uDE89 ═══", consoleWidth));
+            System.out.println(gold + centerText("\uD83D\uDC51 " + winner.getName() + " is the winner! \uD83D\uDC51", consoleWidth) + reset);
+        }
+
         System.out.println();
         System.out.println(lightOrange + centerText("Battle Statistics:", consoleWidth));
         System.out.println(limeGreen + centerText("Winner HP: " + winner.getHealth() + "/" + winner.getMaxHealth(), consoleWidth));

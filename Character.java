@@ -17,6 +17,8 @@ public abstract class Character {
     protected String skillAttack;
     protected String ultimateAttack;
     private double damageMultiplier = 1.0;
+    private boolean isPlayer;
+
     //constructor
     public Character(String name, int maxHp, int maxMana, int regenMana){
     this.name = name;
@@ -126,5 +128,6 @@ public abstract class Character {
     public double getDamageMultiplier() {
         return this.damageMultiplier;
     }
-
+    public boolean isPlayer() { return isPlayer; }
+    public void setPlayer(boolean isPlayer) { this.isPlayer = isPlayer; }
 }
