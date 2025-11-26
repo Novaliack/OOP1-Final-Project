@@ -37,14 +37,14 @@ public abstract class Character {
     protected void performAttack(Character target, int minDamage, int maxDamage, int manaCost, String skillName) {
         // Handle Rest separately
         if(skillName.equals("Rest")) {
-            System.out.println(this.name + " heals themselves! +20 HP!");
-            this.hp = Math.min(this.maxHp, this.hp + 20);
+            System.out.println(this.name + " heals themselves! +"+ (int)Math.floor((this.maxHp*.10))+" HP!");
+            this.hp = (int)Math.min(this.maxHp, this.hp + (this.maxHp * .10));
             System.out.println(this.name + " now has " + this.hp + "/" + this.maxHp + " HP!");
             return;
         }
 
         if (this.currMana < manaCost) {
-            System.out.println(this.name + " does not have enough mana for " + skillName + "! (Costs " + manaCost + ", has " + this.currMana + ")");
+            System.out.println(this.name + " does not have enough mana for " + skillName + "! (Costs " + manaCost + ", has " + (this.currMana-5) + ")");
             return;
         }
         this.currMana -= manaCost;

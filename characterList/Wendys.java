@@ -8,14 +8,12 @@ public class Wendys extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Wendys() {
-        super("Wendy's", 140, 70, 5);
-
+        super("Wendy's", 130, 75, 10);
         this.title = "Fresh, Never Frozen!";
-        this.backstory = "Wendy’s focuses on precision and the ability to outlast opponents with a balance of healing and damage.";
-
-        this.basicAttack = yellow + "Burger Bash" + reset + " – Moderate damage, 15% chance to cause bleeding.";
-        this.skillAttack = yellow + "Spicy Nugget Storm" + reset + " – Reduces enemy defense by 10%.";
-        this.ultimateAttack = yellow + "Frosty Freeze" + reset + " – Massive damage and heals herself.";
+        this.backstory = "Wendy's focuses on precision and the ability to outlast opponents with a balance of healing and damage.";
+        this.basicAttack = yellow + "Burger Bash" + reset + " – Deals 18-26 damage";
+        this.skillAttack = yellow + "Spicy Nugget Storm" + reset + " – Deals 25-33 damage";
+        this.ultimateAttack = yellow + "Quality Is Our Recipe" + reset + " – Deals 40-52 damage";
     }
 
     @Override
@@ -30,11 +28,10 @@ public class Wendys extends Character {
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 40, 52, 55, "Frosty Freeze");
+        performAttack(target, 40, 52, 50, "Quality Is Our Recipe");
     }
 
-
     public void rest(Character target) {
-        performAttack(target,-20, -20, 0, "Rest");
+        performAttack(target, -35, -35, 0, "Rest");
     }
 }

@@ -8,35 +8,30 @@ public class RonaldMcDonald extends Character {
     public static final String yellow = "\u001B[33m";
 
     public RonaldMcDonald() {
-        super("Ronald McDonald", 130, 75, 5);
-
-        this.title = "I’m Lovin' It, and You Will Too!";
-        this.backstory = "McDonald's is the undisputed king of fast food, a place where comfort food reigns supreme.\n" +
-                "His abilities are all about versatility, with quick and satisfying moves that make him a threat in every turn.\n" +
-                "He’s built for a balance of offense and defense, making him a reliable choice for any battle.";
-
-        this.basicAttack = yellow + "Fry Strike" + reset + " – Throws fries dealing moderate physical damage and lowering attack by 5% for 2 turns.";
-        this.skillAttack = yellow + "Big Mac Barrage" + reset + " – Summons Big Macs to deal moderate damage with 20% chance to confuse.";
-        this.ultimateAttack = yellow + "McFlurry Storm" + reset + " – Cyclone of McFlurry cups, massive magic damage and freeze for 1 turn.";
+        super("Ronald McDonald", 135, 80, 15);
+        this.title = "I'm Lovin' It, and You Will Too!";
+        this.backstory = "McDonald's is the undisputed king of fast food, a place where comfort food reigns supreme.";
+        this.basicAttack = yellow + "Big Mac Barrage" + reset + " – Deals 17-23 damage";
+        this.skillAttack = yellow + "McFlurry Storm" + reset + " – Deals 26-34 damage";
+        this.ultimateAttack = yellow + "I'm Lovin' It" + reset + " – Deals 41-51 damage";
     }
 
     @Override
     public void basicAttack(Character target) {
-        performAttack(target, 18, 25, 0, "Fry Strike");
+        performAttack(target, 17, 23, 0, "Big Mac Barrage");
     }
 
     @Override
     public void skillAttack(Character target) {
-        performAttack(target, 25, 35, 30, "Big Mac Barrage");
+        performAttack(target, 26, 34, 30, "McFlurry Storm");
     }
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 40, 50, 55, "McFlurry Storm");
+        performAttack(target, 41, 51, 50, "I'm Lovin' It");
     }
 
-
     public void rest(Character target) {
-        performAttack(target,-20, -20, 0, "Rest");
+        performAttack(target, -35, -35, 0, "Rest");
     }
 }

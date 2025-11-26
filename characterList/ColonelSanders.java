@@ -8,33 +8,30 @@ public class ColonelSanders extends Character {
     public static final String yellow = "\u001B[33m";
 
     public ColonelSanders() {
-        super("Colonel Sanders", 160, 70, 5);
-
+        super("Colonel Sanders", 180, 50, 9);
         this.title = "Finger Lickin' Good Combat!";
         this.backstory = "KFC brings the heat with his secret recipe of abilities, offering a mix of high-damage attacks and powerful debuffs.";
-
-        this.basicAttack = yellow + "Drumstick Bash" + reset + " – Deals moderate damage and reduces speed.";
-        this.skillAttack = yellow + "Fire Chicken Fury" + reset + " – Fiery chicken wings explode for high damage and burn.";
-        this.ultimateAttack = yellow + "Colonel’s Command" + reset +" – Barrage of chicken heals and deals massive damage.";
+        this.basicAttack = yellow + "Kentucky's Best Punch" + reset + " – Deals 18-22 damage";
+        this.skillAttack = yellow + "Colonel's Spice Shot" + reset + " – Deals 25-32 damage";
+        this.ultimateAttack = yellow + "Finger Lickin Good" + reset + " – Deals 40-50 damage";
     }
 
     @Override
     public void basicAttack(Character target) {
-        performAttack(target, 20, 26, 0, "Drumstick Bash");
+        performAttack(target, 18, 22, 0, "Kentucky's Best Punch");
     }
 
     @Override
     public void skillAttack(Character target) {
-        performAttack(target, 28, 36, 30, "Fire Chicken Fury");
+        performAttack(target, 25, 32, 30, "Colonel's Spice Shot");
     }
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 42, 55, 55, "Colonel's Command");
+        performAttack(target, 40, 50, 50, "Finger Lickin Good");
     }
 
-
     public void rest(Character target) {
-        performAttack(target,-20, -20, 0, "Rest");
+        performAttack(target, -40, -40, 0, "Rest");
     }
 }

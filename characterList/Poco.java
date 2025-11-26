@@ -8,33 +8,30 @@ public class Poco extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Poco() {
-        super("Poco", 150, 75, 5);
-
+        super("Poco", 170, 80, 9);
         this.title = "Master of Fries!";
         this.backstory = "Potato Corner may be the underdog, but his crispy fries pack a punch with endurance and flavor.";
-
-        this.basicAttack = yellow + "Fry Barrage" + reset + " – Moderate damage, lowers enemy speed.";
-        this.skillAttack = yellow + "Seasoned Slam" + reset + " – Shockwave that lowers enemy attack.";
-        this.ultimateAttack = yellow + "Fry Fortress" + reset + " – Shield that absorbs damage.";
+        this.basicAttack = yellow + "Fry Barrage" + reset + " – Deals 15-20 damage";
+        this.skillAttack = yellow + "Giga Slam" + reset + " – Deals 22-28 damage";
+        this.ultimateAttack = yellow + "Terra Storm" + reset + " – Deals 35-45 damage";
     }
 
     @Override
     public void basicAttack(Character target) {
-        performAttack(target, 20, 25, 0, "Fry Barrage");
+        performAttack(target, 15, 20, 0, "Fry Barrage");
     }
 
     @Override
     public void skillAttack(Character target) {
-        performAttack(target, 26, 36, 30, "Seasoned Slam");
+        performAttack(target, 22, 28, 30, "Giga Slam");
     }
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 40, 52, 50, "Fry Fortress");
+        performAttack(target, 35, 45, 50, "Terra Storm");
     }
 
-
     public void rest(Character target) {
-        performAttack(target,-20, -20, 0, "Rest");
+        performAttack(target, -40, -40, 0, "Rest");
     }
 }

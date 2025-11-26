@@ -8,33 +8,30 @@ public class Julies extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Julies() {
-        super("Julie's", 120, 80, 5);
-
+        super("Julie's", 110, 85, 12);
         this.title = "Freshly Baked, Fiercely Battle-Ready!";
         this.backstory = "Julie spreads joy through baked goods that can heal and harm with magic frosting.";
-
-        this.basicAttack = yellow + "Rolling Pin Rampage" + reset + " – Moderate damage and reduces speed.";
-        this.skillAttack = yellow + "Pastry Pile-Up" + reset + " – Heavy damage, may stun.";
-        this.ultimateAttack = yellow + "Cake Smash" + reset + " – Cake explosion causing damage over time.";
+        this.basicAttack = yellow + "Ensaymada" + reset + " – Deals 19-25 damage";
+        this.skillAttack = yellow + "Pan De Leche" + reset + " – Deals 28-36 damage";
+        this.ultimateAttack = yellow + "Basta Julie's Fresh Yan" + reset + " – Deals 43-55 damage";
     }
 
     @Override
     public void basicAttack(Character target) {
-        performAttack(target, 17, 23, 0, "Rolling Pin Rampage");
+        performAttack(target, 19, 25, 0, "Ensaymada");
     }
 
     @Override
     public void skillAttack(Character target) {
-        performAttack(target, 25, 35, 30, "Pastry Pile-Up");
+        performAttack(target, 28, 36, 30, "Pan De Leche");
     }
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target, 42, 50, 60, "Cake Smash");
+        performAttack(target, 43, 55, 50, "Basta Julie's Fresh Yan");
     }
 
-
     public void rest(Character target) {
-        performAttack(target,-20, -20, 0, "Rest");
+        performAttack(target, -30, -30, 0, "Rest");
     }
 }

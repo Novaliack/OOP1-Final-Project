@@ -8,34 +8,30 @@ public class Jollibee extends Character {
     public static final String yellow = "\u001B[33m";
 
     public Jollibee(){
-        super("Jollibee", 140, 80, 5);
-
+        super("Jollibee", 150, 100, 13);
         this.title = "The Bee of Victory!";
-        this.backstory = "Jollibee is the lively and spirited mascot who prides himself on showing that fast food can win hearts.\n" +
-                "His combination of speed, attack power, and charm allows him to deliver swift, decisive blows.";
-
-        this.basicAttack = yellow + "Chicken Joy Fury" + reset + " – Flurry of fried chicken that deals moderate damage and reduces defense.";
-        this.skillAttack = yellow + "Honeycomb Havoc" + reset + " – Swarm of bees dealing damage over time and lowering attack.";
-        this.ultimateAttack = yellow + "Sweet Victory" + reset + " – Honey-chicken storm that boosts attack power and drains stamina.";
+        this.backstory = "Jollibee is the lively and spirited mascot who prides himself on showing that fast food can win hearts.";
+        this.basicAttack = yellow + "Chicken Joy Slap" + reset + " – Deals 16-22 damage";
+        this.skillAttack = yellow + "Spaghetti ni Sir Khai" + reset + " – Deals 24-32 damage";
+        this.ultimateAttack = yellow + "Bida Ang Saya!" + reset + " – Deals 38-48 damage";
     }
 
     @Override
     public void basicAttack(Character target) {
-        performAttack(target, 18, 24, 0, "Chicken Joy Fury");
+        performAttack(target, 16, 22, 0, "Chicken Joy Slap");
     }
 
     @Override
     public void skillAttack(Character target) {
-        performAttack(target, 25, 35, 30, "Honeycomb Havoc");
+        performAttack(target, 24, 32, 30, "Spaghetti ni Sir Khai");
     }
 
     @Override
     public void ultimateAttack(Character target) {
-        performAttack(target,40, 50, 55, "Sweet Victory");
+        performAttack(target, 38, 48, 50, "Bida Ang Saya!");
     }
 
-
     public void rest(Character target) {
-        performAttack(target,-20, -20, 0, "Rest");
+        performAttack(target, -40, -40, 0, "Rest");
     }
 }
