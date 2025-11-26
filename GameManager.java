@@ -462,7 +462,7 @@ public class GameManager {
 
         while (!battleSystem.isBattleOver(player1, player2)) {
             System.out.println();
-            System.out.println(yellow + "=== Turn " + turnCounter + " ===" + reset);
+            System.out.println(yellow + "==== Turn " + turnCounter + " ====" + reset);
 
             Character currentPlayer = players[currentTurn % 2];
             Character opponent = players[(currentTurn + 1) % 2];
