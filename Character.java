@@ -46,7 +46,7 @@ public abstract class Character {
         }
 
         if (this.currMana < manaCost) {
-            System.out.println(this.name + " does not have enough mana for " + skillName + "! (Costs " + manaCost + ", has " + (this.currMana-5) + ")");
+            System.out.println(this.name + " does not have enough mana for " + skillName + "! (Costs " + manaCost + ", has " + this.currMana + ")");
             return;
         }
         this.currMana -= manaCost;

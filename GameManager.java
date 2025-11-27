@@ -508,6 +508,8 @@ public class GameManager {
 
             //AI FOR BATTLESS
             if ((aiMode || arcadeMode) && currentPlayer == player2) {
+                currentPlayer.regenerateMana();
+
                 skillChoice = (int) (Math.random() * 4) + 1;
                 System.out.println(purpleBold + "\n--- " + currentPlayer.getName() + "'s Turn ---" + reset);
                 displayBattleStatus(currentPlayer);
@@ -534,6 +536,7 @@ public class GameManager {
     }
     private int getPlayerSkillChoice(Character currentPlayer) {
         System.out.println(cyanBold + "\n--- " + currentPlayer.getName() + "'s Turn ---" + reset);
+        currentPlayer.regenerateMana();
         displayBattleStatus(currentPlayer);
         System.out.print(blue + "Choose skill " + reset + "(1=Basic, 2=Skill, 3=Ultimate, 4=Rest): ");
         return getValidInput(1, 4);

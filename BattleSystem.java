@@ -13,8 +13,6 @@ public class BattleSystem {
      */
     public void executePlayerTurn(Character current, Character opponent, int skillChoice) {
         // mana regen every start sa turn
-        current.regenerateMana();
-
         // Execute the chosen skill
         switch (skillChoice) {
             case 1:
